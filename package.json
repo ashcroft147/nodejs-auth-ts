@@ -1,0 +1,27 @@
+{
+  "name": "nodejs-auth-ts",
+  "version": "1.0.0",
+  "description": "Authentication server with express which is written by Typescript",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node ./server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashcroft147/nodejs-auth-ts.git"
+  },
+  "author": "Kim JeongHyun (ashcroft147)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ashcroft147/nodejs-auth-ts/issues"
+  },
+  "homepage": "https://github.com/ashcroft147/nodejs-auth-ts#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "ejs": "^2.5.5",
+    "express": "^4.14.0",
+    "ts-loader": "^1.3.3",
+    "typescript": "^2.1.4"
+  }
+}
