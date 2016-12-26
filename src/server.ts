@@ -1,4 +1,6 @@
 "use strict"
 
-import * as bodyParser from "body-parser";
-import * as express from "express";
+//import * as bodyParser from "body-parser";
+//import * as express from "express";
+
+console.log("Hello World");
