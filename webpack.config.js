@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: {
-        bundle: './src/server.ts'
+        server: './src/server.ts'
     },
     devtool: 'sourcemaps',
     cache: true,

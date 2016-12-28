@@ -24,4 +24,38 @@ $ npm install express@4.14.0 debug@2.2.0 --save
 debug 모듈은 개발시에 terminal에 output을 nice 하게 한다.
 
 typescript에서 jquery와 같은 3rd party package를 사용하게 되면, typescript컴파일러는
-module의 정보를 알지 못한다. 그래서 compiler에게 module의 structure 
+module의 정보를 알지 못한다. 그래서 ts compiler에게 module 사용에 대한 정보를 제공해 주어야 한다.
+(TypeScript는 MS에서 개발한 JavaScript 슈퍼셋 언어다. 이 TypeScript를 사용하면 정적 검사를 활용할 수 있어 개발에 많은 편의를 제공한다. 물론 기존에 있던 JavaScript 라이브러리에 대해서도 정적 검사를 수행하려면 해당 라이브러리도 정의 파일, 다시 말해 타입 검사를 위한 인터페이스를 제공해야 한다. 그래서 나온 프로젝트가 DefinitelyTyped인데 TypeScript의 타입 정의를 제공하는 리포지터리 서비스다. 사용하는 라이브러리의 인터페이스가 이 리포지터리에 등록되어 있다면 손쉽게 내려받아 그 정의를 사용할 수 있다.) 
+
+<Typescript2.0 이전>
+에는 tsd라는 Typescript의 정의 관리 도구를 사용했다.
+
+tsd install 
+$ npm install tsd -g
+
+install 3rd party package
+$ tsd install jquery --save
+$ tsd query angular -ir
+$ tsd query angularjs/
+$ tsd query jquery.*
+
+#install all definitions from tsd.json
+$ tsd install
+
+tsd.json에는 메타정보가 관리되고, 라이브러리의 인터페이스 정의는 typings에 저장된다. 
+typings 하위폴더에 각 라이브러리에 대한 인터페이스 정의 파일이 존재한다. 
+
+ts파일에서 각각의 라이브러리를 사용하기 위해서는
+/// <reference path="jquery/jquery.d.ts" />
+/// <reference path="../bower_components/angular/angular.d.ts" />
+같은 선언을 해주어야 사용할 수 있었다.
+
+<Typescript2.0 이후>
+typescript사용을 위한 정적타입에 대한 정의는 npm으로 관리가 가능해졌다. 
+@types/module_name 으로 모듈에 대한 인터페이스(type definition) 정의를 설치하면 된다. 
+
+typescript type definition 모듈이 있는 리스트 ?
+
+$ npm install @types/node@6.0.46 @types/express@4.0.33 @types/debug@0.0.29 --save-dev
+ts파일에서 각각의 라이브러리를 사용하기 위해서는 import를 사용하면 된다.
+import * as path from 'path';
