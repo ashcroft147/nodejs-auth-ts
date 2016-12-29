@@ -15,18 +15,18 @@ console.log('Node Modules: '+ JSON.stringify(nodeModules));
 
 module.exports = {
     name: 'server',
-    target: 'node',    
+    target: 'node', // default is web
     entry: {
         server: './src/server.ts'
     },
     devtool: 'sourcemaps',
-    cache: true,
-    debug: true,
+    cache: true, // build 성능 향상
+    debug: true, // Switch loaders to debug mode
     output: {
         path: __dirname,
         filename: './dist/[name].js' // Output for the multiple entry
     },
-    externals: nodeModules,    
+    externals: nodeModules, // Prevent bundling of certain imported packages and instead retrieve these external packages at runtime.
     resolve: {
         // Add `.ts` and `.tsx` as a resolvable extension. 
         extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx', '.ts', '.tsx']

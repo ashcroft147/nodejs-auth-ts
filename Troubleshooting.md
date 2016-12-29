@@ -33,3 +33,18 @@
  
  - 해결방법
     * [Webpack#1206](https://github.com/webpack/webpack/issues/1206)
+    * [Webpack Configuration](https://webpack.github.io/docs/configuration.html)
+    * 추가 configuration
+        - target: "node" // Compile for usage in a node.js-like environment
+                         // web is a default(browser-like)
+        - externals: nodeModules // Prevent bundling of certain imported packages and instead retrieve these external packages at runtime.  
+        - nodeModules: var nodeModules = {};
+fs.readdirSync('node_modules')
+    .filter(function(x) {
+        return ['.bin'].indexOf(x) === -1;
+    })
+    .forEach(function(mod) {
+        nodeModules[mod] = 'commonjs ' + mod;
+    });
+
+console.log('Node Modules: '+ JSON.stringify(nodeModules));
