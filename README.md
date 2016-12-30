@@ -1,6 +1,8 @@
+
 # nodejs-auth-ts
 authentication server written by Typescript
 
+---
 ## project setup
 typescript코드를 javascript 코드로 compile하여 express서버 코드를 작성하기위하여,
 ts compile에 필요한 설정을 지정하는 tsconfig.json을 작성한다.
@@ -19,6 +21,7 @@ webpack을 사용해서 자동화를 해보도록 하자.
 
 $ npm install -g webpack --save -dev
 
+---
 ## express config
 $ npm install express@4.14.0 debug@2.2.0 --save
 debug 모듈은 개발시에 terminal에 output을 nice 하게 한다.
@@ -55,7 +58,32 @@ typescript사용을 위한 정적타입에 대한 정의는 npm으로 관리가 
 @types/module_name 으로 모듈에 대한 인터페이스(type definition) 정의를 설치하면 된다. 
 
 typescript type definition 모듈이 있는 리스트 ?
+[npm @types](https://www.npmjs.com/~types)
 
 $ npm install @types/node@6.0.46 @types/express@4.0.33 @types/debug@0.0.29 --save-dev
 ts파일에서 각각의 라이브러리를 사용하기 위해서는 import를 사용하면 된다.
 import * as path from 'path';
+
+---
+## TDD with Typescript
+Mocha 랑 Chai를 사용해서 Typescript를 사용하여 Test Code를 짜보고자 한다. 
+~~~
+$ npm install mocha@3.1.2 chai@3.5.0 chai-http@3.0.0 --save-dev
+$ npm install @types/mocha@2.2.32 @types/chai@3.4.34 @types/chai-http@0.0.29 --save-dev
+~~~
+만약에 test코드를 .ts파일로 작성한다면, Mocha에서 .ts를 인식할 수 있어야 하는데, 이를 해결하기 위한 몇가지 방법이 있다.
+그 중에서 간단하게 ts-node 모듈을 설치하면, <U>.ts파일의 transpiling 없이 .ts를 해석할 수 있게 해준다.</U>
+ts-node는 runtime에 .ts를 해석하고 transpiling을 해준다.
+~~~
+$ npm install ts-node@1.6.1 --save-dev
+~~~
+
+package.json에 ts-node를 사용하여 mocha를 실행하기 위한 test script를 정의한다.
+~~~
+"scripts": {
+  "start": "node dist/index.js",
+  "test": "mocha --reporter spec --compilers ts:ts-node/register test/**/*.test.ts"
+},
+~~~
+
+test 코드 작성 후 npm test를 실행하면 test가 실행되는 것을 확인 할 수 있다.

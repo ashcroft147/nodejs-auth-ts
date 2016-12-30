@@ -11,13 +11,13 @@ fs.readdirSync('node_modules')
         nodeModules[mod] = 'commonjs ' + mod;
     });
 
-console.log('Node Modules: '+ JSON.stringify(nodeModules));
+//console.log('Node Modules: '+ JSON.stringify(nodeModules));
 
 module.exports = {
     name: 'server',
     target: 'node', // default is web
     entry: {
-        server: './src/server.ts'
+        server: './src/index.ts'
     },
     devtool: 'sourcemaps',
     cache: true, // build 성능 향상
