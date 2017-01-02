@@ -2,8 +2,6 @@ import * as http from 'http';
 import * as debug from 'debug'; // terminal logging을 위한 모듈
 import App from './App';
 
-debug('test');
-
 const port = normalizePort(process.env.PORT || 3000);
 App.set('port', port);
 

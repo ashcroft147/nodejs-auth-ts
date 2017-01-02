@@ -48,7 +48,6 @@
 	var http = __webpack_require__(1);
 	var debug = __webpack_require__(2); // terminal logging을 위한 모듈
 	var App_1 = __webpack_require__(3);
-	debug('test');
 	var port = normalizePort(process.env.PORT || 3000);
 	App_1.default.set('port', port);
 	var server = http.createServer(App_1.default);
@@ -108,7 +107,7 @@
 	var express = __webpack_require__(4);
 	var logger = __webpack_require__(5);
 	var bodyParser = __webpack_require__(6);
-	var HeroRouter_1 = __webpack_require__(7);
+	var HeroRouter_1 = __webpack_require__(8);
 	// Creates and configures an ExpressJS web server.
 	var App = (function () {
 	    //Run configuration methods on the Express instance.
@@ -122,6 +121,9 @@
 	        this.express.use(logger('dev'));
 	        this.express.use(bodyParser.json());
 	        this.express.use(bodyParser.urlencoded({ extended: false }));
+	        this.express.set('views', 'D:/project/github/nodejs-auth-ts/views');
+	        this.express.engine('html', __webpack_require__(10).renderFile);
+	        this.express.set('view engine', 'ejs');
 	    };
 	    // Configure API endpoints.
 	    App.prototype.routes = function () {
@@ -135,7 +137,12 @@
 	                message: 'Hello World!'
 	            });
 	        });
+	        var logInRouter = express.Router();
+	        logInRouter.get('/', function (req, res, next) {
+	            res.render('login.html');
+	        });
 	        this.express.use('/', router);
+	        this.express.use('/login', logInRouter);
 	        this.express.use('/api/v1/heroes', HeroRouter_1.default);
 	    };
 	    return App;
@@ -163,12 +170,13 @@
 	module.exports = require("body-parser");
 
 /***/ },
-/* 7 */
+/* 7 */,
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var express_1 = __webpack_require__(4);
-	var Heroes = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../data\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var Heroes = __webpack_require__(9);
 	var HeroRouter = (function () {
 	    /**
 	     * Initialize the HeroRouter
@@ -219,9 +227,157 @@
 	// Create the HeroRouter, and export its configured Express.Router
 	var heroRoutes = new HeroRouter();
 	heroRoutes.init();
+	var heroRoutesRouter = heroRoutes.router;
 	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = heroRoutes.router;
+	exports.default = heroRoutesRouter;
 
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	module.exports = [
+		{
+			"id": 1,
+			"name": "Luke Cage",
+			"aliases": [
+				"Carl Lucas",
+				"Power Man",
+				"Mr. Bulletproof",
+				"Hero for Hire"
+			],
+			"occupation": "bartender",
+			"gender": "male",
+			"height": {
+				"ft": 6,
+				"in": 3
+			},
+			"hair": "bald",
+			"eyes": "brown",
+			"powers": [
+				"strength",
+				"durability",
+				"healing"
+			]
+		},
+		{
+			"id": 2,
+			"name": "Spider-Man",
+			"aliases": [
+				"Dr. Peter Benjamin Parker",
+				"Spidey",
+				"Web-Sligner",
+				"Spider-X-Man"
+			],
+			"occupation": "scientist",
+			"gender": "male",
+			"height": {
+				"ft": 5,
+				"in": 10
+			},
+			"hair": "brown",
+			"eyes": "hazel",
+			"powers": [
+				"wall-crawling",
+				"strength",
+				"speed",
+				"stamina",
+				"durability",
+				"agility",
+				"healing",
+				"reflexes",
+				"Spider-Sense",
+				"genius"
+			]
+		},
+		{
+			"id": 3,
+			"name": "Captain America",
+			"aliases": [
+				"Winghead",
+				"Shield-Slinger",
+				"the Captain",
+				"Cap",
+				"Yeoman America",
+				"Sentinel of Liberty",
+				"The Living Legend"
+			],
+			"occupation": "special agent",
+			"gender": "male",
+			"height": {
+				"ft": 6,
+				"in": 2
+			},
+			"hair": "blonde",
+			"eyes": "blue",
+			"powers": [
+				"strength",
+				"speed",
+				"durability",
+				"agility",
+				"reflexes",
+				"stamina",
+				"healing",
+				"longevity"
+			]
+		},
+		{
+			"id": 4,
+			"name": "Iron Man",
+			"aliases": [
+				"Tony Stark",
+				"Golden Gladiator",
+				"Spare Parts Man",
+				"Space-Knight"
+			],
+			"occupation": "inventor",
+			"gender": "male",
+			"height": {
+				"ft": 6,
+				"in": 1
+			},
+			"hair": "black",
+			"eyes": "blue",
+			"powers": []
+		},
+		{
+			"id": 5,
+			"name": "Wolverine",
+			"aliases": [
+				"Logan",
+				"Weapon X",
+				"Death",
+				"Agent Ten",
+				"Fist of Legend"
+			],
+			"occupation": "special agent",
+			"gender": "male",
+			"height": {
+				"ft": 5,
+				"in": 3
+			},
+			"hair": "black",
+			"eyes": "blue",
+			"powers": [
+				"healing",
+				"acute senses",
+				"strength",
+				"speed",
+				"durability",
+				"agility",
+				"stamina",
+				"weather adaptation",
+				"animal empathy",
+				"bone claws"
+			]
+		}
+	];
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	module.exports = require("ejs");
 
 /***/ }
 /******/ ]);

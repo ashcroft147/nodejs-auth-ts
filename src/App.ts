@@ -2,11 +2,12 @@ import * as path from 'path';
 import * as express from 'express';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
+import * as passport from 'passport';
+import AuthRouter from './routes/AuthRouter'
 import HeroRouter from './routes/HeroRouter'
 
 // Creates and configures an ExpressJS web server.
 class App {
-
   // ref to Express instance
   public express: express.Application;
 
@@ -22,6 +23,9 @@ class App {
     this.express.use(logger('dev'));
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: false }));
+    this.express.set('views','D:/project/github/nodejs-auth-ts/views');
+    this.express.engine('html', require('ejs').renderFile);
+    this.express.set('view engine','ejs');
   }
 
   // Configure API endpoints.
@@ -36,10 +40,16 @@ class App {
         message: 'Hello World!'
       });
     });
+
+    let logInRouter = express.Router();
+    logInRouter.get('/', (req, res, next) => {
+      res.render('login.html');
+    });
+
     this.express.use('/', router);
+    this.express.use('/login', logInRouter);
     this.express.use('/api/v1/heroes', HeroRouter);
   }
-
 }
 
 export default new App().express;

@@ -1,5 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express';
-const Heroes = require('../data');
+const Heroes = require('../data.json');
 
 export class HeroRouter {
     router: Router
@@ -57,4 +57,6 @@ export class HeroRouter {
 const heroRoutes = new HeroRouter();
 heroRoutes.init();
 
-export default heroRoutes.router;
+const heroRoutesRouter = heroRoutes.router;
+
+export default heroRoutesRouter;
