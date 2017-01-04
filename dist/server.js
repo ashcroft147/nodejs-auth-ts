@@ -134,13 +134,15 @@
 	        // placeholder route handler
 	        router.get('/', function (req, res, next) {
 	            res.json({
-	                message: 'Hello World!'
+	                message: 'Hello World! and nodemon'
 	            });
 	        });
 	        var logInRouter = express.Router();
 	        logInRouter.get('/', function (req, res, next) {
 	            res.render('login.html');
 	        });
+
+			debugger;
 	        this.express.use('/', router);
 	        this.express.use('/login', logInRouter);
 	        this.express.use('/api/v1/heroes', HeroRouter_1.default);

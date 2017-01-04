@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha --reporter spec --compilers ts:ts-node/register test/**/*.test.ts",
     "build": "webpack --watch --config webpack.config.js",
-    "start": "node dist/server.js"
+    "start": "node --debug-brk dist/server.js",
+    "start-nodemon": "nodemon --debug dist/server.js 10"
   },
   "repository": {
     "type": "git",
@@ -42,6 +43,7 @@
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
     "mocha": "^3.1.2",
-    "ts-node": "^1.6.1"
+    "ts-node": "^1.6.1",
+    "nodemon": "1.11.0"
   }
 }
