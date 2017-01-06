@@ -10,7 +10,8 @@ import HeroRouter from './routes/HeroRouter'
 class App {
   // ref to Express instance
   public express: express.Application;
-
+  public express1: express.AuthRouter;
+  
   //Run configuration methods on the Express instance.
   constructor() {
     this.express = express();
@@ -23,7 +24,7 @@ class App {
     this.express.use(logger('dev'));
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: false }));
-    this.express.set('views','D:/project/github/nodejs-auth-ts/views');
+    this.express.set('views', path.dirname());
     this.express.engine('html', require('ejs').renderFile);
     this.express.set('view engine','ejs');
   }
