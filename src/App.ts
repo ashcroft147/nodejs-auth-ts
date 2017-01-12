@@ -10,7 +10,6 @@ import HeroRouter from './routes/HeroRouter'
 class App {
   // ref to Express instance
   public express: express.Application;
-  public express1: express.AuthRouter;
   
   //Run configuration methods on the Express instance.
   constructor() {
@@ -24,7 +23,7 @@ class App {
     this.express.use(logger('dev'));
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: false }));
-    this.express.set('views', path.dirname());
+    this.express.set('views', 'D:/project/github/nodejs-auth-ts/views');
     this.express.engine('html', require('ejs').renderFile);
     this.express.set('view engine','ejs');
   }
@@ -42,13 +41,15 @@ class App {
       });
     });
 
+/*
     let logInRouter = express.Router();
     logInRouter.get('/', (req, res, next) => {
       res.render('login.html');
     });
 
+*/
     this.express.use('/', router);
-    this.express.use('/login', logInRouter);
+    this.express.use('/login', AuthRouter);
     this.express.use('/api/v1/heroes', HeroRouter);
   }
 }

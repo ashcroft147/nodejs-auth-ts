@@ -107,6 +107,7 @@
 	var express = __webpack_require__(4);
 	var logger = __webpack_require__(5);
 	var bodyParser = __webpack_require__(6);
+	var AuthRouter_1 = __webpack_require__(7);
 	var HeroRouter_1 = __webpack_require__(8);
 	// Creates and configures an ExpressJS web server.
 	var App = (function () {
@@ -137,14 +138,15 @@
 	                message: 'Hello World! and nodemon'
 	            });
 	        });
-	        var logInRouter = express.Router();
-	        logInRouter.get('/', function (req, res, next) {
-	            res.render('login.html');
-	        });
-
-			debugger;
+	        /*
+	            let logInRouter = express.Router();
+	            logInRouter.get('/', (req, res, next) => {
+	              res.render('login.html');
+	            });
+	        
+	        */
 	        this.express.use('/', router);
-	        this.express.use('/login', logInRouter);
+	        this.express.use('/login', AuthRouter_1.default);
 	        this.express.use('/api/v1/heroes', HeroRouter_1.default);
 	    };
 	    return App;
@@ -172,7 +174,46 @@
 	module.exports = require("body-parser");
 
 /***/ },
-/* 7 */,
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(__dirname) {"use strict";
+	var express_1 = __webpack_require__(4);
+	var AuthRouter = (function () {
+	    /**
+	     * Initialize the HeroRouter
+	     */
+	    function AuthRouter() {
+	        this.router = express_1.Router();
+	        this.init();
+	    }
+	    /**
+	     * GET all Heroes.
+	     */
+	    AuthRouter.prototype.getAll = function (req, res, next) {
+	        res.send("login test: " + __dirname);
+	        res.render('login.html');
+	    };
+	    /**
+	     * Take each handler, and attach to one of the Express.Router's
+	     * endpoints.
+	     */
+	    AuthRouter.prototype.init = function () {
+	        this.router.get('/', this.getAll);
+	    };
+	    return AuthRouter;
+	}());
+	exports.AuthRouter = AuthRouter;
+	// Create the HeroRouter, and export its configured Express.Router
+	var authRoutes = new AuthRouter();
+	authRoutes.init();
+	var authRoutesRouter = authRoutes.router;
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = authRoutesRouter;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, "/"))
+
+/***/ },
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 

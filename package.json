@@ -7,7 +7,7 @@
     "test": "mocha --reporter spec --compilers ts:ts-node/register test/**/*.test.ts",
     "build": "webpack --watch --config webpack.config.js",
     "start": "node --debug-brk dist/server.js",
-    "start-nodemon": "nodemon --debug dist/server.js 10"
+    "start-nodemon": "nodemon --debug dist/server.js"
   },
   "repository": {
     "type": "git",
